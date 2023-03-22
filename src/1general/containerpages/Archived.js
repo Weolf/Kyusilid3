@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext , useEffect, useState } from 'react'
 import Classpanel from '../components/Classpanel'
 import { myArchivedContext , myClasesContext} from '../../Globalcontext'
-import { useState } from 'react';
+
 
 import Archiveselection from '../../2prof/Archiveselection';
 
@@ -11,10 +11,38 @@ function Archived() {
   const {myclasses} = useContext(myClasesContext);
 
   const [selectclasses, setselectclasses] = useState(false);
-  const [classselection, setclassselection] = useState(
+  const [classselection, setclassselection] = useState()
+  const [merged, setmerged] = useState(myclasses);
 
 
-  )
+
+  useEffect(()=>{
+      if(myarchive!== undefined && myclasses !== undefined){
+        setmerged([...myclasses , ...myarchive]);
+
+      }
+     
+  },[myclasses , myarchive])
+
+
+
+  useEffect(()=>{
+      if(merged !== undefined){
+        setclassselection(merged.map(item=>({
+          "selected" : item.isarchived , "itemselect" : item
+        })))
+      }
+  },[merged])
+
+  const handleselected= (selected,ee)=>{
+    setclassselection(classselection.map(item=>({
+      'selected' :(item.itemselect.sec_name + item.itemselect.sub_name === ee.itemselect.sec_name+ ee.itemselect.sub_name) ? selected : item.selected,
+      'itemselect': item.itemselect
+    })))
+    
+  }
+
+
 
 
   return (
@@ -24,13 +52,11 @@ function Archived() {
 
         <ul>
 
-          {myclasses !== undefined   &&  myclasses.map((item, key)=>(
-                   <Archiveselection item= {item}/>
+          {classselection !== undefined   &&  classselection.map((item, key)=>(
+                   <Archiveselection key={key} item= {item} handleselected={handleselected}/>
           ))}
-          {myarchive !== undefined   &&  myarchive.map((item, key)=>(
-                   <Archiveselection item= {item}/>
-          ))}
-
+         
+      
 
 
 
@@ -38,7 +64,7 @@ function Archived() {
     
         </ul>
 
-        <button className='commonbutton lighttext secondary '> Update Archived</button>
+        <button className='commonbutton lighttext secondary ' onClick={()=>{console.log(JSON.stringify(classselection))}}> Update Archived</button>
 
 
       </div>

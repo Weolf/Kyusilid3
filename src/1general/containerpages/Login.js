@@ -60,6 +60,8 @@ function Login() {
           setuserinfo(response.data);
           console.log(response.data);
           // Store user data in local storage or use it as needed
+          // Save the token to local storage
+          localStorage.setItem('token', response.data.access_token);
       } else {
         alert("Username and password didn't match");
           console.log('Authentication Failed!');

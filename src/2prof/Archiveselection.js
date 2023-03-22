@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {ImCheckboxUnchecked ,ImCheckboxChecked} from 'react-icons/im'
 
-function Archiveselection({item}) {
+function Archiveselection({item , handleselected}) {
 
-    const [selected, setselected] = useState(false);
+  
 
   return (
-    <li className=' flex  padding12' onClick={()=>{setselected(!selected)}}> 
+    <li className=' flex  padding12' onClick={()=>{handleselected(!item.selected, item);}}> 
 
-    <div > {selected ? < ImCheckboxChecked />: <ImCheckboxUnchecked /> }</div>
+    <div > {item.selected ? < ImCheckboxChecked />: <ImCheckboxUnchecked /> }</div>
 
     <div  className='marginleft12'> 
-    <div>{item.sub_name}</div>
-    <p> {item.yearlvl}{item.sec_name}</p>
+    <div>{item.itemselect.sub_name}</div>
+    <p> {item.itemselect.yearlvl}{item.itemselect.sec_name}</p>
     </div>
 
     
