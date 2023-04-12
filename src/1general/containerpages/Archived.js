@@ -1,4 +1,4 @@
-import React, { useContext , useEffect, useState } from 'react'
+import React, { useContext , useEffect, useState , useEffect, useState } from 'react'
 import Classpanel from '../components/Classpanel'
 import { myArchivedContext , myClasesContext , userInfoContext} from '../../Globalcontext'
 import Archiveselection from '../../2prof/Archiveselection';
@@ -22,7 +22,9 @@ function Archived() {
       if(myarchive!== undefined && myclasses !== undefined){
         setmerged([...myclasses , ...myarchive]);
 
-      }
+      })
+  const [merged, setmerged] = useState(myclasses);
+
      
   },[myclasses , myarchive])
 
@@ -48,12 +50,16 @@ function Archived() {
     console.log(JSON.stringify(classselection));
     await axios.post("https://api.kyusillid.online/api/updateclasslist", classselection).then(
       navigate('/')
-    ).catch()
+    useEffect(()=>{
+      if(myarchive!== undefined && myclasses !== undefined){
+        setmerged([...myclasses , ...myarchive]);
+
+      }.catch()
 
     await axios.get('https://api.kyusillid.online/api/getclasslist_archived/' + userinfo.user.acc_id)
     .then(response => {
       setmyarchive(response.data);
-     
+          
     })
     .catch(error => {
       console.log(error);
@@ -74,6 +80,28 @@ function Archived() {
 
 
 
+  },[myclasses , myarchive])
+
+
+
+  useEffect(()=>{
+      if(merged !== undefined){
+        setclassselection(merged.map(item=>({
+          "selected" : item.isarchived , "itemselect" : item
+        })))
+      }
+  },[merged])
+
+  const handleselected= (selected,ee)=>{
+    setclassselection(classselection.map(item=>({
+      'selected' :(item.itemselect.sec_name + item.itemselect.sub_name === ee.itemselect.sec_name+ ee.itemselect.sub_name) ? selected : item.selected,
+      'itemselect': item.itemselect
+    })))
+    
+  }
+
+
+
 
   return (
     <div className='flex '>
@@ -85,8 +113,9 @@ function Archived() {
           {classselection !== undefined   &&  classselection.map((item, key)=>(
                    <Archiveselection key={key} item= {item} handleselected={handleselected}/>
           ))}
-         
-      
+                  
+            
+
 
 
 
@@ -94,7 +123,7 @@ function Archived() {
     
         </ul>
 
-        <button className='commonbutton lighttext secondary ' onClick={updateclasslist}> Update Archived</button>
+        <button className='commonbutton lighttext secondary ' onClick={updateclasslist} onClick={()=>{console.log(JSON.stringify(classselection))}}> Update Archived</button>
 
 
       </div>
