@@ -194,18 +194,18 @@ function ClassActivity() {
           .catch((error) => {
             console.error(error);
           });
-  
-        axios.get("https://api.kyusillid.online/api/getactivitystatus/" + currentactivity.activity_id + "/" + userinfo.user.acc_id)
-          .then((response) => {
-            console.log(response.data);
-            if (response.data !== "unassigned") {
-              setactivitystatus(response.data);
-              setisassigned(true);
+
+          axios.get('https://api.kyusillid.online/api/getactivitystatus/' + currentactivity.activity_id + '/' + userinfo.user.acc_id).then(
+            response=>{
+              console.log(response.data)
+              if(response.data !== "unassigned"){
+                setactivitystatus(response.data);
+                setisassigned(true);
+              }
             }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+           ).catch()
+  
+      
       }
     };
     xhr.send(formData);
@@ -370,10 +370,15 @@ const unSubmit= async (e)=>{
                  <h4>Marked {activitystatus.grade} / {activitystatus.points}</h4>
                  :
                  activitystatus.status ==='handed in late'?
-
-           
+      
                  <h4>Handed in Late</h4>
                  :
+
+                 activitystatus.status ==='done'?
+      
+                 <h4>Done</h4>
+                 :
+
                  <h4>Assigned</h4>
                 
                 }

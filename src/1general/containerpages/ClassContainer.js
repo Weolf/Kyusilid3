@@ -72,24 +72,22 @@ function ClassContainer() {
       if(currentclass !== undefined){
         filldata();
         setclassbanner(currentclass!== undefined? currentclass.classbanner: 0)
+        setsampleurl(currentclass.class_link !==undefined ? currentclass.class_link  : "")
+
         
       }
 
-      setsampleurl(currentclass.class_link)
+
+      if(currentclass===undefined){
+        navigate('/')
+      }
+   
 
   },[location , currentclass])
 
 
 
 
-  useEffect(()=>{
-    if(currentclass===undefined){
-      navigate('/')
-    }
- 
-  
-
-   },[])
 
 
 

@@ -17,16 +17,17 @@ function Viewresponse() {
         const temp = {
             "assign_id": responseinfo.assign_id,
             "score" : score,
-            "uploadedfile":responseinfo.uploadedfile
+         
         }
-        await  axios.post('https://api.kyusillid.online/api/setGrade').then(
+        console.log(JSON.stringify(temp))
+        await  axios.post('https://api.kyusillid.online/api/setGrade' , temp).then(
 
         ()=>{
             alert("Successfully saved");
             setsaved(true)
         }
         ).catch()
-      
+
     }
 
     useEffect(()=>{
@@ -50,7 +51,7 @@ function Viewresponse() {
             <h4>Student's Work</h4>  
             <div className="flex marginleftauto">
                 <h4>Score</h4>
-                <input type="text" className="commontextbox primaryborder col-lg-4" defaultValue={score} onChange={(e)=>{setscore(e.target.value + " /100")}}/>
+                <input type="text" className="commontextbox primaryborder col-lg-4" defaultValue={score} onChange={(e)=>{setscore(e.target.value)}}/>
                 {!ifsaved ?
                 <button className='commontextbox secondary lighttext col-lg-4' onClick={tt}>Mark response</button>
             :
