@@ -21,6 +21,7 @@ function Profilenotif() {
     const [currentpage, setcurrentpage] = useState();
     const location = useLocation();
     const {userinfo, setuserinfo}= useContext(userInfoContext);
+    const [imgURL, setImageUrl] = useState(null);
  
 
     const [profilepanel, setprofilepanel] = useState(false);
@@ -68,9 +69,13 @@ function Profilenotif() {
     
     }
 
-
-
-    
+    useEffect(()=>{
+        console.log();
+        if (userinfo && userinfo.user && userinfo.user.profile_pic) {
+          const imgURL = `https://api.kyusillid.online/${userinfo.user.profile_pic}`;
+          setImageUrl(imgURL);
+        }
+      }, [userinfo]);
 
    
 
@@ -99,14 +104,14 @@ function Profilenotif() {
         
         <div className='profileicon' >
              
-            <img src={Profilepic} alt="" onClick={toggleprofilepanel}/>
+            <img src={imgURL} alt="" onClick={toggleprofilepanel}/>
             {profilepanel &&
                 <div >
                 <div className="modalbackground" onClick={toggleprofilepanel}>
                     
                 </div>
                 <div className='profilemodal background borderradius-md'>
-                        <img src={Profilepic} alt=""/>
+                        <img src={imgURL} alt=""/>
 
                         {userinfo.user.usertype !== 'admin' && <button className='secondary commonbutton' onClick={ gotoprofile}>Go to Account</button>}
                     

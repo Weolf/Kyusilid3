@@ -29,7 +29,7 @@ function Container() {
       lastpage === "/classes/sampleclass/marks" ||
       lastpage === "/classes/sampleclass/messages" ||
       lastpage === "/classes/sampleclass/settings" ||
-      lastpage === "/kyusilidAdmin/department" 
+      lastpage === "/classes/sampleclass/students" 
     ) {
       localStorage.setItem("lastPage", "/home");
     }

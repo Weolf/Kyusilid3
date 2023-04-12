@@ -77,8 +77,7 @@ function Login() {
           localStorage.setItem("userinfo", JSON.stringify(response.data));
           navigate("/home");
           // Store user data in local storage or use it as needed
-          // Save the token to local storage
-          localStorage.setItem('token', response.data.access_token);
+
       } else {
         alert("Username and password didn't match");
           console.log('Authentication Failed!');
