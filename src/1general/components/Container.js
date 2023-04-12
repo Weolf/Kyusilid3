@@ -2,21 +2,46 @@ import React, { useContext, useEffect, useState } from 'react'
 import Sidebar from './Sidebar'
 import Profilenotif from './Profilenotif'
 
-import { Outlet , useNavigate} from 'react-router-dom'
+import { Outlet , useNavigate, useLocation} from 'react-router-dom'
 import { userInfoContext , myClasesContext  , currentclassContext , myArchivedContext} from '../../Globalcontext'
 import axios from 'axios'
 
 
 
 function Container() {
-
-  const {userinfo} = useContext(userInfoContext);
+  const storedUserinfo = JSON.parse(localStorage.getItem("userinfo"));
+  const [userinfo, setUserinfo] = useState(storedUserinfo);
   const [myclasses, setmyclasses] = useState();
   const [myarchive, setmyarchive] = useState();
-  const [currentclass, setcurrentclass] = useState()
-
-
+  const [currentclass, setcurrentclass] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    // Save the current page URL to localStorage before refresh
+    localStorage.setItem("lastPage", location.pathname);
+    const lastpage = localStorage.getItem("lastPage");
+    if (
+      lastpage === "/classes/sampleclass" ||
+      lastpage === "/classes/sampleclass/modules" ||
+      lastpage === "/classes/sampleclass/sourcematerials" ||
+      lastpage === "/classes/sampleclass/attendance" ||
+      lastpage === "/classes/sampleclass/info" ||
+      lastpage === "/classes/sampleclass/marks" ||
+      lastpage === "/classes/sampleclass/messages" ||
+      lastpage === "/classes/sampleclass/settings" ||
+      lastpage === "/kyusilidAdmin/department" 
+    ) {
+      localStorage.setItem("lastPage", "/home");
+    }
+  }, [location]);
+
+  useEffect(() => {
+    localStorage.setItem("userinfo", JSON.stringify(userinfo));
+    if (!userinfo) {
+      setUserinfo(JSON.parse(localStorage.getItem("userinfo")));
+    }
+  }, [userinfo]);
+
  
   useEffect(() => {
     filldata(); 

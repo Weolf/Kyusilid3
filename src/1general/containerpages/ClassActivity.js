@@ -517,7 +517,7 @@ const unSubmit= async (e)=>{
                   <td>{item.name}</td>
                   <td>{item.status}</td>
                   <td>{item.grade !== null ?  item.grade : '?'} / {item.points}</td>
-                  <td> <button className='commonbutton secondary lighttext' onClick={()=>{setresponseinfo(item); navigate('/classes/sampleclass/activity/activityId/response')}}> view</button></td>
+                  <td> <button className='commonbutton secondary lighttext' onClick={()=>{setresponseinfo(item); navigate('/classes/sampleclass/activity/activityId/response')}}> View</button></td>
                 </tr>
               ))}
               

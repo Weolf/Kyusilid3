@@ -1,5 +1,6 @@
 
 import React, { useContext, useEffect, useState } from 'react'
+import { useLocation } from "react-router-dom";
 import Avater from '../../assets/images/avatar.jpg'
 import {BsFillGearFill} from 'react-icons/bs'
 import DonutChart from '../components/DonutChart'
@@ -16,8 +17,12 @@ function Profiilepage() {
   const [cpassword, setcpassword] = useState();
   const [imageUrl, setImageUrl] = useState(null);
   const [file, setFile] = useState(null);
+  const location = useLocation();
 
-
+  useEffect(() => {
+    // Save the current page URL to localStorage before refresh
+    localStorage.setItem("lastPage", location.pathname);
+  }, [location]);
 
   useEffect(()=>{
       axios.get('https://api.kyusillid.online/api/getprofilestatus/' + userinfo.user.acc_id).then(

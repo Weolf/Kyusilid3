@@ -31,6 +31,11 @@ function Department() {
     const [sampleclassid, setsampleclassid] = useState();
     const [topicid, settopicsid] = useState();
     const [updatelist, setupdatelist] = useState();
+
+    useEffect(() => {
+      // Save the current page URL to localStorage before refresh
+      localStorage.setItem("lastPage", '/kyusilidAdmin');
+    }, [location]);
     
 
 

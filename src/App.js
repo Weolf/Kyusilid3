@@ -82,7 +82,7 @@ function App() {
             <Route path = '/Changepassword' element={userinfo !== null ? <Firstchangepass/> :<Login/>}/>
             <Route path='/ClassMarkPage' element={<ClassMarkPage/>} />
               <Route path={'/'} element={userinfo!=null ? <Container/> : <Login/> } > 
-                <Route path={''} element={<Dashboard/>}></Route>  {/*this is the dashboard*/}
+                <Route path={'home'} element={<Dashboard/>}></Route>  {/*this is the dashboard*/}
                 <Route path={'classes/sampleclass'} element={<ClassContainer/>}>          
                         <Route path='' element ={ <ClassStats/>} />
                         <Route path='createnew' element={<Createnew/> }/>

@@ -1,11 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useLocation } from "react-router-dom";
+
 
 function Adminlog() {
   const [data, setData] = useState([
 
   ]);
   const [filteredData, setFilteredData] = useState(data);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Save the current page URL to localStorage before refresh
+    localStorage.setItem("lastPage", location.pathname);
+  }, [location]);
 
 
   useEffect(()=>{

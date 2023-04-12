@@ -43,6 +43,9 @@ function Profilenotif() {
     const logout =()=>{
         setprofilepanel(false) 
         setuserinfo();
+        localStorage.removeItem('authenticated');
+        localStorage.removeItem('userinfo');
+        localStorage.removeItem('lastPage');
     }
 
     useEffect(()=>{

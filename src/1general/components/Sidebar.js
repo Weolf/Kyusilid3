@@ -66,7 +66,7 @@ function Sidebar() {
 {sidebar && <h6>Online Classroom Application</h6>   }
 {sidebar && <div className='sidebarcontent'>
     <ul>
-        <li className='sidebarmenu' onClick={()=>{navigate('/')}}> <div className={`highlight ${isactive('/') && ' sidebarhighlightactive'}`}></div> <MdSpaceDashboard /> Home </li>
+        <li className='sidebarmenu' onClick={()=>{navigate('/home')}}> <div className={`highlight ${isactive('/home') && ' sidebarhighlightactive'}`}></div> <MdSpaceDashboard /> Home </li>
         <li className="sidebarmenu"> <div></div> <FaBookReader />All Classes</li> 
         {myclasses!== undefined &&
             myclasses.map((classitem , key) =>(

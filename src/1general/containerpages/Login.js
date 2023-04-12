@@ -3,6 +3,7 @@ import React, { useContext , useState, useEffect} from 'react'
 import { userInfoContext } from '../../Globalcontext'
 import logoiconimage from '../../assets/images/Kyusilid.png'
 import logoiconimage1 from '../../assets/images/avatarlogo.webp'
+import { useNavigate } from "react-router-dom";
 
 
 function Login() {
@@ -10,12 +11,25 @@ function Login() {
   const {setuserinfo} = useContext(userInfoContext);
   const [username, setusername] = useState();
   const [password, setpassword] = useState();
+  const navigate = useNavigate();
 
   //Message for validation
   const [usernamemessage, setusermessage] = useState()
   const [passmessage, setpassmessage] = useState()
 
-  
+  useEffect(() => {
+    const authenticated = localStorage.getItem("authenticated");
+    const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+    if (authenticated === "true" && userinfo) {
+      setuserinfo(userinfo);
+      const lastPage = localStorage.getItem("lastPage");
+
+    if (lastPage) {
+      localStorage.removeItem("lastPage"); 
+      navigate(lastPage);
+    }}
+  }, [navigate, setuserinfo]);
+
 
   const handleUsernameChange=(e)=>{
     setusername(e.target.value);
@@ -59,6 +73,9 @@ function Login() {
           console.log('Authentication Successful!');
           setuserinfo(response.data);
           console.log(response.data);
+          localStorage.setItem("authenticated", "true");
+          localStorage.setItem("userinfo", JSON.stringify(response.data));
+          navigate("/home");
           // Store user data in local storage or use it as needed
       } else {
         alert("Username and password didn't match");
@@ -73,7 +90,7 @@ function Login() {
 
 
 
- 
+if(!localStorage.getItem("lastPage")){
   return (
     <div className='Backgroundlog'>
       <div className='logotext col-lg-5 '>
@@ -105,7 +122,7 @@ function Login() {
     </div> 
     </div> 
   )
-  
+  }
 }
 
 

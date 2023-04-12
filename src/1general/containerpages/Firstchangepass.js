@@ -42,10 +42,14 @@ function Firstchangepass() {
           setconfirmnewpass("");
           const confirmLogout = window.confirm("Your password has been change successfully, You will now be redirected to the login page. Click OK to continue.");
           if (confirmLogout) {
-            window.location.href = '/';
+          
+            localStorage.removeItem('userinfo');
+            localStorage.removeItem('authenticated');     
+            navigate('/');        
           }
         })
         .catch()
+        setuserinfo(); 
     }
   
     if ((newpass !== undefined && newpass.length < 6) || (newpass !== undefined && newpass.length < 6)) {
